@@ -1,6 +1,7 @@
 import torch
 import torch.utils.data as Data
 
+torch.manual_seed(1)
 
 BATCH_SIZE=8
 
