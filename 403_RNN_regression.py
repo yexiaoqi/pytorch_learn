@@ -33,10 +33,16 @@ class RNN(nn.Module):
     def forward(self,x,h_state):
         r_out,h_state=self.rnn(x,h_state)
 
-        outs=[]
-        for time_step in range(r_out.size(1)):
-            outs.append(self.out(r_out[:,time_step,:]))
-        return torch.stack(outs,dim=1),h_state
+        # outs=[]
+        # for time_step in range(r_out.size(1)):
+        #     outs.append(self.out(r_out[:,time_step,:]))
+        # return torch.stack(outs,dim=1),h_state
+
+        r_out=r_out.view(-1,32)
+        outs=self.out(r_out)
+        return outs.view(-1, TIME_STEP, 1),h_state
+
+
 
 rnn=RNN()
 print(rnn)
